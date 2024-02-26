@@ -12,6 +12,11 @@ img {
   border-radius: 4px;
 }
 
+@font-face {
+  font-family: 'Elza';
+  src: url('../../public/fonts/Elza-Regular.otf');
+}
+
 /*
 * --------------------------------------------------
 * components/Aside
@@ -35,7 +40,7 @@ aside header {
   display: flex;
   height: var(--header-height);
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 2rem;
 }
 
 aside header h3 {
@@ -127,75 +132,13 @@ aside li {
 * components/Header
 * --------------------------------------------------
 */
-.header {
-  align-items: center;
-  background: #fff;
-  display: flex;
-  height: var(--header-height);
-  padding: 0 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
 
-.header-menu-mobile-toggle {
-  @media (min-width: 48em) {
-    display: none;
-  }
-}
-
-.header-menu-mobile {
-  display: flex;
-  flex-direction: column;
-  grid-gap: 1rem;
-}
-
-.header-menu-desktop {
-  display: none;
-  grid-gap: 1rem;
-  @media (min-width: 45em) {
-    display: flex;
-    grid-gap: 1rem;
-    margin-left: 3rem;
-  }
-}
-
-.header-menu-item {
-  cursor: pointer;
-}
-
-.header-ctas {
-  align-items: center;
-  display: flex;
-  grid-gap: 1rem;
-  margin-left: auto;
-}
 
 /*
 * --------------------------------------------------
 * components/Footer
 * --------------------------------------------------
 */
-.footer {
-  background: var(--color-dark);
-  margin-top: auto;
-}
-
-.footer-menu-missing {
-  display: inline-block;
-  margin: 1rem;
-}
-
-.footer-menu {
-  align-items: center;
-  display: flex;
-  grid-gap: 1rem;
-  padding: 1rem;
-}
-
-.footer-menu a {
-  color: var(--color-light);
-}
 
 /*
 * --------------------------------------------------
