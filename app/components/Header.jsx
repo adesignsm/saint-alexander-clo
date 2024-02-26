@@ -2,6 +2,10 @@ import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
 
+import HEADER_LOGO from '../../public/header-logo.png';
+import CART_ICON from '../../public/cart-icon.png';
+import MENU_ICON from '../../public/menu-icon.png';
+
 /**
  * @param {HeaderProps}
  */
@@ -10,7 +14,7 @@ export function Header({header, isLoggedIn, cart}) {
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+        {HEADER_LOGO ? <img className='header-logo' src={HEADER_LOGO} /> : shop.name}
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -75,8 +79,10 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
           >
             {item.title}
           </NavLink>
+          
         );
       })}
+      <SearchToggle />
     </nav>
   );
 }
@@ -87,16 +93,15 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Login')}
           </Await>
         </Suspense>
       </NavLink>
-      <SearchToggle />
       <CartToggle cart={cart} />
+      <HeaderMenuMobileToggle />
     </nav>
   );
 }
@@ -104,7 +109,7 @@ function HeaderCtas({isLoggedIn, cart}) {
 function HeaderMenuMobileToggle() {
   return (
     <a className="header-menu-mobile-toggle" href="#mobile-menu-aside">
-      <h3>☰</h3>
+      <img src={MENU_ICON} />
     </a>
   );
 }
@@ -117,7 +122,14 @@ function SearchToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <a href="#cart-aside">Cart {count}</a>;
+  return (
+    <a href="#cart-aside"> 
+      <div className='cart-icon-holster'>
+        <img src={CART_ICON} />
+        <span className='cart-count'>{count}</span>
+      </div>
+    </a>
+  )
 }
 
 /**
