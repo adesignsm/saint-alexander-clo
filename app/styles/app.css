@@ -17,6 +17,10 @@ img {
   src: url('../../public/fonts/Elza-Regular.otf');
 }
 
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /*
 * --------------------------------------------------
 * components/Aside
@@ -247,21 +251,39 @@ aside li {
 */
 .featured-collection {
   display: block;
-  margin-bottom: 2rem;
   position: relative;
+  height: 100vh;
 }
 
-.featured-collection-image {
+/* .featured-collection-image {
   aspect-ratio: 1 / 1;
   @media (min-width: 45em) {
     aspect-ratio: 16 / 9;
   }
+} */
+
+.featured-collection-image {
+  height: 100%;
 }
 
 .featured-collection img {
-  height: auto;
+  height: 100%;
   max-height: 100%;
   object-fit: cover;
+  width: 100vw !important;
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1920px) {
+  .featured-collection-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .featured-collection img {
+    object-fit: cover;
+    height: 100vh;
+  }
 }
 
 .recommended-products-grid {
