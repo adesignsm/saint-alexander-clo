@@ -121,7 +121,7 @@ function SearchToggle() {
 /**
  * @param {{count: number}}
  */
-function CartBadge({count}) {
+export function CartBadge({count}) {
   return (
     <a href="#cart-aside"> 
       <div className='cart-icon-holster'>

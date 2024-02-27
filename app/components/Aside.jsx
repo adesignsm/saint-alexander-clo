@@ -13,6 +13,8 @@
  *   id?: string;
  * }}
  */
+import HEADER_LOGO from '../../public/header-logo.png';
+
 export function Aside({children, heading, id = 'aside'}) {
   return (
     <div aria-modal className="overlay" id={id} role="dialog">
@@ -25,7 +27,7 @@ export function Aside({children, heading, id = 'aside'}) {
       />
       <aside>
         <header>
-          <h3>{heading}</h3>
+          <img src={HEADER_LOGO} />
           <CloseAside />
         </header>
         <main>{children}</main>
