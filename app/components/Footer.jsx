@@ -7,9 +7,30 @@ import {useRootLoaderData} from '~/root';
 export function Footer({menu, shop}) {
   return (
     <footer className="footer">
+      <article className='about-quote'>
+        <h1>Who we are</h1>
+        <p>
+          F/FECTED WAS FOUNDED IN 2022 AND REPRESENTS A LIFESTYLE BASED ON FASHION AND INDIVIDUALISM.
+          <br /><br />
+          ALL COLLECTIONS ARE DEFINED BY THE BRAND’S SLOGAN ‘AFFECT IN SILENCE’, WHICH IMPLIES THE PHILOSOPHY OF EXPRESSING YOUR INDIVIDUAL PERSONALITY THROUGHOUT UNISEX PIECES. YOU DON’T NEED TO EXPLAIN – 
+          <br /><br />
+          AESTHETIC SPEAKS FOR YOU.
+        </p>
+      </article>
       {menu && shop?.primaryDomain?.url && (
-        <FooterMenu menu={menu} primaryDomainUrl={shop.primaryDomain.url} />
+        <article className='site-map'>
+          <h1>Information</h1>
+          <FooterMenu menu={menu} primaryDomainUrl={shop.primaryDomain.url} />
+        </article>
       )}
+      <article className='socials'>
+        <h1>Socials</h1>
+        <ul>
+          <li>
+            <a href='https://www.instagram.com/saintalexanderclo/'>instagram</a>
+          </li>
+        </ul>
+      </article>
     </footer>
   );
 }
