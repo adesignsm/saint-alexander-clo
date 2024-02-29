@@ -16,6 +16,7 @@ import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
 import headerStyles from './styles/header.css';
+import homeStyles from './styles/home.css';
 import footerStyles from './styles/footer.css';
 import {Layout} from '~/components/Layout';
 
@@ -42,6 +43,7 @@ export function links() {
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
     {rel: 'stylesheet', href: headerStyles},
+    {rel: 'stylesheet', href: homeStyles},
     {rel: 'stylesheet', href: footerStyles},
     {
       rel: 'preconnect',
