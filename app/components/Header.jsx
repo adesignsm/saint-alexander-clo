@@ -3,8 +3,9 @@ import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
 
 import HEADER_LOGO from '../../public/header-logo.png';
-import CART_ICON from '../../public/cart-icon.png';
-import MENU_ICON from '../../public/menu-icon.png';
+import CART_ICON from '../../public/cart-icon.svg';
+import MENU_ICON from '../../public/menu-icon.svg';
+import SEARCH_ICON from '../../public/search-icon.svg';
 
 /**
  * @param {HeaderProps}
@@ -33,7 +34,7 @@ export function Header({header, isLoggedIn, cart}) {
  *   viewport: Viewport;
  * }}
  */
-export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
+export function HeaderMenu({menu, primaryDomainUrl, viewport, isLoggedIn}) {
   const {publicStoreDomain} = useRootLoaderData();
   const className = `header-menu-${viewport}`;
 
@@ -82,7 +83,13 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
           
         );
       })}
-      <SearchToggle />
+      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+        <Suspense fallback="Sign in">
+          <Await resolve={isLoggedIn} errorElement="Sign in">
+            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Login')}
+          </Await>
+        </Suspense>
+      </NavLink>
     </nav>
   );
 }
@@ -93,13 +100,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Login')}
-          </Await>
-        </Suspense>
-      </NavLink>
+      <SearchToggle />
       <CartToggle cart={cart} />
       <HeaderMenuMobileToggle />
     </nav>
@@ -115,7 +116,7 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
-  return <a href="#search-aside">Search</a>;
+  return <a href="#search-aside" className='search-toggle'><img src={SEARCH_ICON}/></a>;
 }
 
 /**
