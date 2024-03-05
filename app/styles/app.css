@@ -4,8 +4,8 @@
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
   --header-height: 64px;
-  --color-dark: #000;
-  --color-light: #fff;
+  --color-dark: #282828 ;
+  --color-light: #D6D6D6;
 }
 
 img {
@@ -257,7 +257,8 @@ aside li {
 */
 .featured-collection {
   display: block;
-  position: relative;
+  position: absolute;
+  top: 0;
   height: 100vh;
 }
 

@@ -1,5 +1,5 @@
 .footer {
-  background-color: #fff;
+  background-color: #D6D6D6;
   margin-top: auto;
   display: flex;
   padding: 2rem;
@@ -33,7 +33,7 @@
 }
   
 .footer-menu a {
-    color: #000 !important;
+    color: #282828  !important;
 }
 
 .footer .about-quote {
