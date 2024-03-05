@@ -18,6 +18,7 @@ import appStyles from './styles/app.css';
 import headerStyles from './styles/header.css';
 import homeStyles from './styles/home.css';
 import footerStyles from './styles/footer.css';
+import productStyles from './styles/products.css';
 import {Layout} from '~/components/Layout';
 
 /**
@@ -42,6 +43,7 @@ export function links() {
   return [
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: productStyles},
     {rel: 'stylesheet', href: headerStyles},
     {rel: 'stylesheet', href: homeStyles},
     {rel: 'stylesheet', href: footerStyles},

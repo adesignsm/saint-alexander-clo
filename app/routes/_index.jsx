@@ -25,6 +25,7 @@ export async function loader({context}) {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+  
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
@@ -35,16 +36,18 @@ export default function Homepage() {
 
 /**
  * @param {{
- *   collection: FeaturedCollectionFragment;
+ *    collection: FeaturedCollectionFragment;
  * }}
  */
+
 function FeaturedCollection({collection}) {
   if (!collection) return null;
   const image = collection?.image;
+
   return (
     <Link
       className="featured-collection"
-      to={`/collections/${collection.handle}`}
+      to={`/products`}
     >
       {image && (
         <div className="featured-collection-image">

@@ -257,7 +257,8 @@ aside li {
 */
 .featured-collection {
   display: block;
-  position: relative;
+  position: absolute;
+  top: 0;
   height: 100vh;
 }
 
