@@ -44,11 +44,15 @@ export async function loader({request, params, context}) {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
+  console.log(collection);
 
   return (
     <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
+      <div className='collection-cover-image'>
+        <img src={collection.image.url} />
+      </div>
+      {/* <h1>{collection.title}</h1>
+      <p className="collection-description">{collection.description}</p> */}
       <Pagination connection={collection.products}>
         {({nodes, isLoading, PreviousLink, NextLink}) => (
           <>
@@ -171,6 +175,13 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      image {
+        id
+        altText
+        url
+        width
+        height
+      }
       products(
         first: $first,
         last: $last,
