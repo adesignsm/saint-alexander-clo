@@ -76,7 +76,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport, isLoggedIn}) {
             onClick={closeAside}
             prefetch="intent"
             style={activeLinkStyle}
-            to={url}
+            to={url.replace('/en-us/', '/')}
           >
             {item.title}
           </NavLink>
