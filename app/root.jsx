@@ -19,6 +19,7 @@ import headerStyles from './styles/header.css';
 import homeStyles from './styles/home.css';
 import footerStyles from './styles/footer.css';
 import productStyles from './styles/products.css';
+import collectionsStyles from './styles/collections.css';
 import {Layout} from '~/components/Layout';
 
 /**
@@ -46,6 +47,7 @@ export function links() {
     {rel: 'stylesheet', href: productStyles},
     {rel: 'stylesheet', href: headerStyles},
     {rel: 'stylesheet', href: homeStyles},
+    {rel: 'stylesheet', href: collectionsStyles},
     {rel: 'stylesheet', href: footerStyles},
     {
       rel: 'preconnect',

@@ -1,0 +1,20 @@
+.collection .collection-cover-image {
+    width: 100%;
+}
+
+.collection .collection-cover-image img {
+    width: 100%;
+}
+
+.collection .products-grid {
+    display: flex;
+    background-color: var(--color-light);
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 1rem;
+}
+
+.collection .products-grid .product-item h4 {
+    font-weight: lighter;
+    font-size: small;
+}
