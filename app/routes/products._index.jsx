@@ -93,7 +93,9 @@ function ProductItem({product, index}) {
                             return (
                                 option.values.map((colourName) => (
                                     <Link to={`/products/${product.handle}?Colour=${colourName}&Size=S`}>
-                                        <div key={colourName} className={`${colourName.replace(/\s+/g, '-')}`}></div>
+                                        <div key={colourName} className={`${colourName.replace(/\s+/g, '-')}`}>
+                                          <span></span>
+                                        </div>
                                     </Link>
                                 ))
                             );

@@ -4,34 +4,46 @@
 }
 
 .product .dots div {
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     border-radius: 100%;
-    border: 2px solid #000;
-    box-sizing: border-box;
+    border: 1px solid #000;
+    text-align: center;
+    padding: .1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.product .dots div.Night {
+.product .dots div > span {
+    display: inline-block;
+    height: 80%;
+    width: 80%; 
+    border-radius: 100%;
     background-color: #000;
 }
 
-.product .dots div.Cactus {
+.product .dots div.Night span {
+    background-color: #000;
+}
+
+.product .dots div.Cactus span {
     background-color: #75816B;
 }
 
-.product .dots div.Smoke {
+.product .dots div.Smoke span {
     background-color: #d3d3d3;
 }
 
-.product .dots div.BLUE-TINT {
+.product .dots div.BLUE-TINT span {
     background-color: #6699CC;
 }
 
-.product .dots div.Tinted-Grey {
+.product .dots div.Tinted-Grey span {
     background-color: #A9A9A9
 }
 
-.product .dots div.Fossil {
+.product .dots div.Fossil span {
     background-color: #3D3635;
 }
 
@@ -48,13 +60,30 @@
 .products .product .product-item h3,
 .products .product .product-item h4  {
     margin-bottom: 1rem;
+    font-weight: lighter;
 }
 
-.products .product .product-item h3 {
-    font-weight: lighter;
+.products .product .product-item h4 {
+    font-size: small;
 }
 
 .products .product {
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.products .products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.products .products-grid .product {
+    width: 125px;
+    margin-bottom: 1rem;
+}
+
+.products .products-grid .product .product-item h3 {
+    font-size: small;
 }
