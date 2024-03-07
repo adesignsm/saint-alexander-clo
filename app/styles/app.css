@@ -393,10 +393,7 @@ aside li {
   display: flex;
   flex-wrap: wrap;
   grid-gap: 0.75rem;
-}
-
-.product-options-item {
-  padding: 0.25rem 0.5rem;
+  flex-direction: column;
 }
 
 /*
