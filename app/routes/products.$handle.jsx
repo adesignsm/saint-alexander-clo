@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 
@@ -24,6 +24,8 @@ export const meta = ({data}) => {
 export async function loader({params, request, context}) {
   const {handle} = params;
   const {storefront} = context;
+
+  const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
 
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -76,7 +78,7 @@ export async function loader({params, request, context}) {
     variables: {handle},
   });
 
-  return defer({product, variants});
+  return defer({product, variants, recommendedProducts});
 }
 
 /**
@@ -146,10 +148,17 @@ function ProductImage({image}) {
  * }}
  */
 function ProductMain({selectedVariant, product, variants}) {
-  const {title, descriptionHtml} = product;
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showSizingDropdown, setShowSizingDropdown] = useState(false);
+
+  /** @type {LoaderReturnData} */
+  const data = useLoaderData();
+  const {title, descriptionHtml, collections} = product;
+
   return (
     <div className="product-main">
-      <h1>{title}</h1>
+      <p>{collections.edges[0].node.title}</p>
+      <p>{title}</p>
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
       <Suspense
@@ -176,12 +185,20 @@ function ProductMain({selectedVariant, product, variants}) {
       </Suspense>
       <br />
       <br />
-      <p>
-        <strong>Description</strong>
-      </p>
+      <div className='dropdown-label' onClick={() => setShowDropdown(!showDropdown)}>
+        <p>Description</p>
+        <p className='expand'>{showDropdown ? '-' : '+'}</p>
+      </div>
+      <div className={`description ${showDropdown ? 'show' : ''}`} dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+      <div className='dropdown-label' onClick={() => setShowSizingDropdown(!showSizingDropdown)}>
+        <p>Sizing</p>
+        <p className='expand'>{showSizingDropdown ? '-' : '+'}</p>
+      </div>
+      <div className={`sizing ${showSizingDropdown ? 'show' : ''}`}>
+          <h1> size chart goes here</h1>
+      </div>
       <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
+      <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
 }
@@ -206,7 +223,7 @@ function ProductPrice({selectedVariant}) {
           </div>
         </>
       ) : (
-        selectedVariant?.price && <Money data={selectedVariant?.price} />
+        selectedVariant?.price && <Money data={selectedVariant?.price} withoutTrailingZeros={true}/>
       )}
     </div>
   );
@@ -220,8 +237,31 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
+  console.log(selectedVariant.selectedOptions[1].value);
   return (
     <div className="product-form">
+      <div className='dots'>
+        <p>{
+          selectedVariant.selectedOptions[1].value.slice(0, 1).toUpperCase() 
+          + selectedVariant.selectedOptions[1].value.slice(1).toLowerCase() 
+        }</p>
+        {product.options.length > 1 && (
+          product.options.map((option) => {
+            if (option.name === 'Colour') {
+              return (
+                option.values.map((colourName) => (
+                  <Link to={`/products/${product.handle}?Colour=${colourName}&Size=S`}>
+                    <div key={colourName} className={`${colourName.replace(/\s+/g, '-')}`}>
+                      <span></span>
+                    </div>
+                  </Link>
+                ))
+              );
+            }
+            return null;
+          })
+        )}
+      </div>
       <VariantSelector
         handle={product.handle}
         options={product.options}
@@ -253,34 +293,91 @@ function ProductForm({product, selectedVariant, variants}) {
 }
 
 /**
+ * @param {{
+*   products: Promise<RecommendedProductsQuery>;
+* }}
+*/
+function RecommendedProducts({products}) {
+ return (
+   <div className="recommended-products">
+     <Suspense fallback={<div>Loading...</div>}>
+       <Await resolve={products}>
+         {({products}) => (
+           <div className="recommended-products-grid">
+             {products.nodes.map((product) => (
+               <Link
+                 key={product.id}
+                 className="recommended-product"
+                 to={`/products/${product.handle}`}
+               >
+                 <Image
+                   data={product.images.nodes[0]}
+                   aspectRatio="1/1"
+                   sizes="(min-width: 45em) 20vw, 50vw"
+                 />
+                 <h4>{product.title}</h4>
+                 <small>
+                   <Money data={product.priceRange.minVariantPrice} />
+                 </small>
+               </Link>
+             ))}
+           </div>
+         )}
+       </Await>
+     </Suspense>
+     <br />
+   </div>
+ );
+}
+
+/**
  * @param {{option: VariantOption}}
  */
 function ProductOptions({option}) {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedSize, setSelecetedSize] = useState('S');
+
+  const handleDropwdownClick = (value) => {
+    setSelecetedSize(value);
+    setShowDropdown(false)
+  }
   return (
-    <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
-      <div className="product-options-grid">
-        {option.values.map(({value, isAvailable, isActive, to}) => {
-          return (
-            <Link
-              className="product-options-item"
-              key={option.name + value}
-              prefetch="intent"
-              preventScrollReset
-              replace
-              to={to}
-              style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
-                opacity: isAvailable ? 1 : 0.3,
-              }}
-            >
-              {value}
-            </Link>
-          );
-        })}
-      </div>
-      <br />
-    </div>
+    <>
+      {option.name !== 'Colour' && (
+        <div className="product-options" key={option.name}>
+          <h5>{option.name}</h5>
+          <div className="product-options-grid">
+            <div className='dropdown-label' onClick={() => setShowDropdown(!showDropdown)}>
+              <p>{selectedSize}</p>
+              <p className='expand'>{showDropdown ? '-' : '+'}</p>
+            </div>
+            <ul className={`dropwdown ${showDropdown ? 'show' : ''}`}>
+              {option.values.map(({value, isAvailable, isActive, to}) => {
+                return (
+                  <li>
+                    <Link
+                      className="product-options-item"
+                      key={option.name + value}
+                      prefetch="intent"
+                      preventScrollReset
+                      replace
+                      to={to}
+                      style={{
+                        opacity: isAvailable ? 1 : 0.3,
+                      }}
+                      onClick={() => handleDropwdownClick(value)}
+                    >
+                      {value}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <br />
+        </div>
+      )}
+    </>
   );
 }
 
@@ -377,6 +474,15 @@ const PRODUCT_FRAGMENT = `#graphql
       description
       title
     }
+    collections(first: 10) {
+      edges {
+        node {
+          id
+          title
+          handle
+        }
+      }
+    }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
@@ -415,6 +521,37 @@ const VARIANTS_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...ProductVariants
+    }
+  }
+`;
+
+const RECOMMENDED_PRODUCTS_QUERY = `#graphql
+  fragment RecommendedProduct on Product {
+    id
+    title
+    handle
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 1) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
+  }
+  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
+      nodes {
+        ...RecommendedProduct
+      }
     }
   }
 `;

@@ -88,7 +88,6 @@ function ProductItem({product, index}) {
             <div className='dots'>
                 {product.options.length > 1 && (
                     product.options.map((option) => {
-                        console.log(option);
                         if (option.name === 'Colour') {
                             return (
                                 option.values.map((colourName) => (
