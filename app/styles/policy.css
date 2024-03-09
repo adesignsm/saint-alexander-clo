@@ -1,0 +1,15 @@
+.policies {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.policies fieldset {
+    border: none;
+    border-bottom: 1px solid var(--color-dark);
+    padding-left: 0;
+}
+
+.policy {
+    width: 85%;
+    margin: 0 auto;
+}
