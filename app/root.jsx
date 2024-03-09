@@ -21,6 +21,7 @@ import footerStyles from './styles/footer.css';
 import productStyles from './styles/products.css';
 import collectionsStyles from './styles/collections.css';
 import singleProductStyles from './styles/single-product.css';
+import policyStyles from './styles/policy.css';
 import {Layout} from '~/components/Layout';
 
 /**
@@ -51,6 +52,7 @@ export function links() {
     {rel: 'stylesheet', href: collectionsStyles},
     {rel: 'stylesheet', href: footerStyles},
     {rel: 'stylesheet', href: singleProductStyles},
+    {rel: 'stylesheet', href: policyStyles},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
