@@ -83,7 +83,7 @@ function ProductItem({product, index}) {
                     />
                 )}
                 <h3>{product.title}</h3>
-                <h4>${product.priceRange.minVariantPrice.amount} {product.priceRange.minVariantPrice.currencyCode}</h4>
+                <h4>${product.priceRange.minVariantPrice.amount.toString().replace('.0', '')} {product.priceRange.minVariantPrice.currencyCode}</h4>
             </Link>
             <div className='dots'>
                 {product.options.length > 1 && (

@@ -345,6 +345,8 @@ aside li {
 .product-item img {
   height: auto;
   width: 100%;
+  transform: scale(1.5);
+  margin-bottom: 1.5rem;
 }
 
 /*
