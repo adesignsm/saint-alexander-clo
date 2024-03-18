@@ -1,4 +1,4 @@
-.product .dots {
+.dots {
     display: flex;
     gap: 5px;
 }
@@ -8,18 +8,18 @@
     margin-bottom: .3rem !important;
 }
 
-.product .dots p {
+.dots p {
     font-size: .8em;
 }
 
-.product .dots a {
+.dots a {
     display: flex;
     align-items: center;
     transform: scale(1.5);
     margin-right: .2rem;
 }
 
-.product .dots div {
+.dots div {
     height: 10px;
     width: 10px;
     border-radius: 100%;
@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.product .dots div > span {
+.dots div > span {
     display: block;
     height: 8px;
     width: 8px; 
@@ -39,27 +39,27 @@
     margin: 0 auto;
 }
 
-.product .dots div.Night span {
+.dots div.Night span {
     background-color: #000;
 }
 
-.product .dots div.Cactus span {
+.dots div.Cactus span {
     background-color: #75816B;
 }
 
-.product .dots div.Smoke span {
+.dots div.Smoke span {
     background-color: #d3d3d3;
 }
 
-.product .dots div.BLUE-TINT span {
+.dots div.BLUE-TINT span {
     background-color: #6699CC;
 }
 
-.product .dots div.Tinted-Grey span {
+.dots div.Tinted-Grey span {
     background-color: #A9A9A9
 }
 
-.product .dots div.Fossil span {
+.dots div.Fossil span {
     background-color: #3D3635;
 }
 

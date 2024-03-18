@@ -1,3 +1,22 @@
+.collections-grid {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
+    margin-bottom: 2rem;
+}
+
+.collection-description {
+    margin-bottom: 1rem;
+    max-width: 95%;
+    @media (min-width: 45em) {
+      max-width: 600px;
+    }
+}
+  
+.collection-item img {
+    height: auto;
+}
+
 .collection .collection-cover-image {
     width: 100%;
 }
@@ -11,10 +30,15 @@
     background-color: var(--color-light);
     width: 90%;
     margin: 0 auto;
-    padding-top: 1rem;
+    padding-top: 3rem;
 }
 
 .collection .products-grid .product-item h4 {
     font-weight: lighter;
     font-size: small;
+    margin-bottom: 0;
+}
+
+.collection .products-grid .collection-product .dots {
+    margin-top: .5rem;
 }

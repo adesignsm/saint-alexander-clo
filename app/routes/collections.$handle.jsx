@@ -44,7 +44,6 @@ export async function loader({request, params, context}) {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
-  console.log(collection);
 
   return (
     <div className="collection">
@@ -100,26 +99,46 @@ function ProductItem({product, loading}) {
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   return (
-    <Link
-      className="product-item"
-      key={product.id}
-      prefetch="intent"
-      to={variantUrl}
-    >
-      {product.featuredImage && (
-        <Image
-          alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          data={product.featuredImage}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h4>{product.title}</h4>
-      <small>
-        <Money data={product.priceRange.minVariantPrice} />
-      </small>
-    </Link>
+    <div className='collection-product'>
+      <Link
+        className="product-item"
+        key={product.id}
+        prefetch="intent"
+        to={variantUrl}
+      >
+        {product.featuredImage && (
+          <Image
+            alt={product.featuredImage.altText || product.title}
+            aspectRatio="1/1"
+            data={product.featuredImage}
+            loading={loading}
+            sizes="(min-width: 45em) 400px, 100vw"
+          />
+        )}
+        <h4>{product.title}</h4>
+        <small>
+          <Money data={product.priceRange.minVariantPrice} />
+        </small>
+      </Link>
+      <div className='dots'>
+        {product && (
+          product.options.map((option) => {
+            if (option.name === 'Colour') {
+              return (
+                option.values.map((colourName) => (
+                  <Link to={`/products/${product.handle}?Colour=${colourName}&Size=S`}>
+                    <div key={colourName} className={`${colourName.replace(/\s+/g, '-')}`}>
+                      <span></span>
+                    </div>
+                  </Link>
+                ))
+              );
+            }
+            return null;
+          })
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -154,6 +173,10 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
           value
         }
       }
+    }
+    options {
+      name
+      values
     }
   }
 `;
