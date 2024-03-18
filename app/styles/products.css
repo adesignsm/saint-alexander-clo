@@ -8,6 +8,10 @@
     margin-bottom: .3rem !important;
 }
 
+.product .dots p {
+    font-size: .8em;
+}
+
 .product .dots a {
     display: flex;
     align-items: center;
@@ -94,4 +98,26 @@
 
 .products .products-grid .product .product-item h3 {
     font-size: small;
+}
+
+.recommended-products-grid {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    @media (min-width: 45em) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.recommended-product .dots {
+    margin-top: .5rem;
+}
+
+.recommended-product .recommended-product-link h4 {
+    font-weight: normal;
+    margin: 0 !important;
+}
+  
+.recommended-product img {
+    height: auto;
 }

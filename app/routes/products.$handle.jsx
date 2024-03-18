@@ -11,6 +11,8 @@ import {
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
 
+import CART_ICON from '../../public/cart-icon.svg';
+
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -157,10 +159,11 @@ function ProductMain({selectedVariant, product, variants}) {
 
   return (
     <div className="product-main">
-      <p>{collections.edges[0].node.title}</p>
-      <p>{title}</p>
+      {collections && (
+        <p className='product-collection-title'>{collections.edges[0].node.title}</p>
+      )}
+      <p className='product-title'>{title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()}</p>
       <ProductPrice selectedVariant={selectedVariant} />
-      <br />
       <Suspense
         fallback={
           <ProductForm
@@ -237,7 +240,6 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
-  console.log(selectedVariant.selectedOptions[1].value);
   return (
     <div className="product-form">
       <div className='dots'>
@@ -305,21 +307,41 @@ function RecommendedProducts({products}) {
          {({products}) => (
            <div className="recommended-products-grid">
              {products.nodes.map((product) => (
-               <Link
-                 key={product.id}
-                 className="recommended-product"
-                 to={`/products/${product.handle}`}
-               >
-                 <Image
-                   data={product.images.nodes[0]}
-                   aspectRatio="1/1"
-                   sizes="(min-width: 45em) 20vw, 50vw"
-                 />
-                 <h4>{product.title}</h4>
-                 <small>
-                   <Money data={product.priceRange.minVariantPrice} />
-                 </small>
-               </Link>
+              <div className='recommended-product'>
+                <Link
+                  key={product.id}
+                  className="recommended-product-link"
+                  to={`/products/${product.handle}`}
+                >
+                  <Image
+                    data={product.images.nodes[0]}
+                    aspectRatio="1/1"
+                    sizes="(min-width: 45em) 20vw, 50vw"
+                  />
+                  <h4>{product.title}</h4>
+                  <small>
+                    <Money data={product.priceRange.minVariantPrice} />
+                  </small>
+                </Link>
+                <div className='dots'>
+                    {products && (
+                        product.options.map((option) => {
+                          if (option.name === 'Colour') {
+                            return (
+                              option.values.map((colourName) => (
+                                <Link to={`/products/${product.handle}?Colour=${colourName}&Size=S`}>
+                                  <div key={colourName} className={`${colourName.replace(/\s+/g, '-')}`}>
+                                    <span></span>
+                                  </div>
+                                </Link>
+                              ))
+                            );
+                          }
+                          return null;
+                        })  
+                      )}
+                </div>
+              </div>
              ))}
            </div>
          )}
@@ -344,10 +366,10 @@ function ProductOptions({option}) {
   return (
     <>
       {option.name !== 'Colour' && (
-        <div className="product-options" key={option.name}>
+        <div className="product-options" key={option.name} onClick={() => setShowDropdown(!showDropdown)}>
           <h5>{option.name}</h5>
           <div className="product-options-grid">
-            <div className='dropdown-label' onClick={() => setShowDropdown(!showDropdown)}>
+            <div className='dropdown-label'onClick={() => setShowDropdown(!showDropdown)}>
               <p>{selectedSize}</p>
               <p className='expand'>{showDropdown ? '-' : '+'}</p>
             </div>
@@ -374,7 +396,6 @@ function ProductOptions({option}) {
               })}
             </ul>
           </div>
-          <br />
         </div>
       )}
     </>
@@ -402,10 +423,11 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           />
           <button
             type="submit"
+            className={disabled && 'sold-out'}
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
-            {children}
+            <img src={CART_ICON} /> {children}
           </button>
         </>
       )}
@@ -544,6 +566,10 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
         width
         height
       }
+    }
+    options {
+      name
+      values
     }
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
