@@ -1,6 +1,6 @@
 .dots {
     display: flex;
-    gap: 5px;
+    gap: 2.5px;
 }
 
 .product h4, .product h3 {
@@ -15,8 +15,7 @@
 .dots a {
     display: flex;
     align-items: center;
-    transform: scale(1.5);
-    margin-right: .2rem;
+    transform: scale(1);
 }
 
 .dots div {
@@ -86,7 +85,7 @@
 .products .products-grid {
     display: grid;
     flex-wrap: wrap;
-    width: fit-content;
+    width: 100%;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
 }
@@ -98,6 +97,22 @@
 
 .products .products-grid .product .product-item h3 {
     font-size: small;
+}
+
+.products-grid {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
+    margin-bottom: 2rem;
+}
+  
+.product-item img {
+    height: auto;
+    width: 100%;
+    max-width: 300px;
+    transform: scale(1.5);
+    margin-bottom: 1.5rem;
+    object-fit: cover;
 }
 
 .recommended-products-grid {

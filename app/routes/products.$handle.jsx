@@ -1,6 +1,6 @@
 import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
-import {Await, Link, useLoaderData} from '@remix-run/react';
+import {Await, Link, useLoaderData, useNavigate, ScrollRestoration} from '@remix-run/react';
 
 import {
   Image,
@@ -133,10 +133,8 @@ function ProductImage({image}) {
     <div className="product-image">
       <Image
         alt={image.altText || 'Product Image'}
-        aspectRatio="1/1"
         data={image}
         key={image.id}
-        sizes="(min-width: 45em) 50vw, 100vw"
       />
     </div>
   );
@@ -357,44 +355,33 @@ function RecommendedProducts({products}) {
  */
 function ProductOptions({option}) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedSize, setSelecetedSize] = useState('S');
+  const navigate = useNavigate();
 
-  const handleDropwdownClick = (value) => {
-    setSelecetedSize(value);
-    setShowDropdown(false)
+  const handleDropdownChange = (e) => {
+    e.preventDefault();
+    navigate(e.target.value)
   }
+
   return (
     <>
       {option.name !== 'Colour' && (
         <div className="product-options" key={option.name} onClick={() => setShowDropdown(!showDropdown)}>
           <h5>{option.name}</h5>
           <div className="product-options-grid">
-            <div className='dropdown-label'onClick={() => setShowDropdown(!showDropdown)}>
-              <p>{selectedSize}</p>
-              <p className='expand'>{showDropdown ? '-' : '+'}</p>
-            </div>
-            <ul className={`dropwdown ${showDropdown ? 'show' : ''}`}>
-              {option.values.map(({value, isAvailable, isActive, to}) => {
-                return (
-                  <li>
-                    <Link
-                      className="product-options-item"
-                      key={option.name + value}
-                      prefetch="intent"
-                      preventScrollReset
-                      replace
-                      to={to}
-                      style={{
-                        opacity: isAvailable ? 1 : 0.3,
-                      }}
-                      onClick={() => handleDropwdownClick(value)}
-                    >
-                      {value}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <select
+              className={`dropdown ${showDropdown ? 'show' : ''}`}
+              onChange={handleDropdownChange}
+            >
+              {option.values.map(({ value, isAvailable, isActive, to }) => (
+                <option
+                  key={option.name + value}
+                  value={to}
+                  disabled={!isAvailable}
+                >
+                  {value}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       )}

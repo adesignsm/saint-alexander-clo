@@ -14,7 +14,7 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
     <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end className='header-logo-container'>
         {HEADER_LOGO ? <img className='header-logo' src={HEADER_LOGO} /> : shop.name}
       </NavLink>
       <HeaderMenu
@@ -127,7 +127,9 @@ export function CartBadge({count}) {
     <a href="#cart-aside"> 
       <div className='cart-icon-holster'>
         <img src={CART_ICON} />
-        <span className='cart-count'>{count}</span>
+        {count > 0 && (
+          <span className='cart-count'>{count}</span>
+        )}
       </div>
     </a>
   )
