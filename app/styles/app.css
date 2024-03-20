@@ -1,5 +1,5 @@
 :root {
-  --aside-width: 400px;
+  --aside-width: 100%;
   --cart-aside-summary-height-with-discount: 300px;
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
@@ -29,7 +29,7 @@ img {
 aside {
   background: var(--color-light);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-  height: 100vh;
+  height: 100%;
   max-width: var(--aside-width);
   min-width: var(--aside-width);
   position: fixed;
@@ -76,6 +76,7 @@ aside header h2 {
 
 aside main {
   margin: 1rem;
+  margin-left: 0;
 }
 
 aside p {
@@ -186,6 +187,7 @@ aside li {
   border-top: 1px solid var(--color-dark);
   bottom: 0;
   padding-top: 0.75rem;
+  padding-left: 0.75rem;
   position: absolute;
   width: calc(var(--aside-width) - 40px);
 }
@@ -305,20 +307,6 @@ aside li {
 * --------------------------------------------------
 */
 
-.products-grid {
-  display: grid;
-  grid-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
-  margin-bottom: 2rem;
-}
-
-.product-item img {
-  height: auto;
-  width: 100%;
-  transform: scale(1.5);
-  margin-bottom: 1.5rem;
-}
-
 /*
 * --------------------------------------------------
 * routes/products.$handle.tsx
@@ -411,4 +399,11 @@ aside li {
 
 .account-logout {
   display: inline-block;
+}
+
+
+@media only screen and (min-width: 375px) and (max-width: 768px) {
+  .cart-main {
+    width: 80%;
+  }
 }

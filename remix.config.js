@@ -4,6 +4,7 @@ module.exports = {
   ignoredRouteFiles: ['**/.*'],
   watchPaths: ['./public', './.env'],
   server: './server.js',
+  scrollRestoration: 'manual',
   /**
    * The following settings are required to deploy Hydrogen apps to Oxygen:
    */
