@@ -2,10 +2,9 @@
   background-color: #D6D6D6;
   margin-top: auto;
   display: flex;
-  padding: 2rem;
+  padding: 3rem;
   gap: 20px;
   text-transform: uppercase;
-  justify-content: space-around;
   font-size: x-small;
 }
 
@@ -48,5 +47,6 @@
 @media only screen and (min-width: 375px) and (max-width: 768px) {
   .footer {
     flex-direction: column;
+
   }
 }

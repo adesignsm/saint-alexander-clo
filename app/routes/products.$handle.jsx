@@ -185,7 +185,6 @@ function ProductMain({selectedVariant, product, variants}) {
         </Await>
       </Suspense>
       <br />
-      <br />
       <div className='dropdown-label' onClick={() => setShowDropdown(!showDropdown)}>
         <p>Description</p>
         <p className='expand'>{showDropdown ? '-' : '+'}</p>
@@ -199,6 +198,7 @@ function ProductMain({selectedVariant, product, variants}) {
           <h1> size chart goes here</h1>
       </div>
       <br />
+      
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
@@ -269,7 +269,6 @@ function ProductForm({product, selectedVariant, variants}) {
       >
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
-      <br />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -300,6 +299,7 @@ function ProductForm({product, selectedVariant, variants}) {
 function RecommendedProducts({products}) {
  return (
    <div className="recommended-products">
+    <p>Pairs well with</p>
      <Suspense fallback={<div>Loading...</div>}>
        <Await resolve={products}>
          {({products}) => (

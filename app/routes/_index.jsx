@@ -43,6 +43,7 @@ export default function Homepage() {
 function FeaturedCollection({collection}) {
   if (!collection) return null;
   const image = collection?.image;
+  const desktopImage = collection?.metafield?.reference.image.originalSrc;
 
   return (
     <Link
@@ -51,7 +52,8 @@ function FeaturedCollection({collection}) {
     >
       {image && (
         <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
+          <Image data={image} sizes="100vw" className='default-image'/>
+          <img className='desktop-image' src={desktopImage} />
         </div>
       )}
       {/* <h1>{collection.title}</h1> */}
@@ -110,6 +112,15 @@ const FEATURED_COLLECTION_QUERY = `#graphql
       height
     }
     handle
+    metafield(namespace: "custom" key: "desktop_cover_image") {
+      reference {
+        ... on MediaImage {
+          image {
+            originalSrc
+          }
+        }
+      }
+    }
   }
   query FeaturedCollection($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {

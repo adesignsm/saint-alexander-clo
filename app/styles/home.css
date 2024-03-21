@@ -9,3 +9,22 @@
         height: 100vh;
     }
 }
+
+@media only screen and (min-width: 1024px) and (max-width: 1920px) {
+    .home {
+        height: 100dvh;
+    }
+
+    .home .featured-collection-image .default-image {
+        display: none;
+    }
+
+    .home .featured-collection-image .desktop-image {
+        object-fit: cover;
+    }
+
+    .home .featured-collection-image img {
+        object-fit: contain;
+        width: fit-content;
+    }
+}
