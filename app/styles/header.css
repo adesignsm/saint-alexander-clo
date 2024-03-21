@@ -24,9 +24,6 @@
     max-width: 30px;
     height: 30px;
     margin-top: .25rem;
-    @media (min-width: 48em) {
-      display: none;
-    }
 }
   
 .header-menu-mobile {
@@ -122,5 +119,23 @@ header .header-logo {
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
     header .header-logo {
         max-width: 200px;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1920px) {
+    .header {
+        width: 96.5dvw;
+    }
+    
+    .header-menu-desktop {
+        display: none;
+    }
+
+    .header-ctas {
+        width: 100rem;
+    }
+
+    .header-menu-mobile-toggle {
+        width: 100%;
     }
 }
