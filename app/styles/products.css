@@ -34,12 +34,12 @@
     height: 8px;
     width: 8px; 
     border-radius: 100%;
-    background-color: #000;
+    background-color: #282828;
     margin: 0 auto;
 }
 
 .dots div.Night span {
-    background-color: #000;
+    background-color: #282828;
 }
 
 .dots div.Cactus span {
@@ -52,6 +52,10 @@
 
 .dots div.BLUE-TINT span {
     background-color: #6699CC;
+}
+
+.dots div.SHADOW span {
+    background-color: #282828;
 }
 
 .dots div.Tinted-Grey span {
@@ -181,7 +185,7 @@
     height: auto;
 }
 
-@media only screen and (min-width: 1024px) and (max-width: 1920px) {
+@media only screen and (min-width: 968px) and (max-width: 1920px) {
     .product-main {
         max-width: 700px;
     }

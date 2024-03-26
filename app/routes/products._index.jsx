@@ -64,7 +64,7 @@ function ProductGrid({products}) {
  *   index: number;
  * }}
  */
-function ProductItem({product, index}) {    
+function ProductItem({product, index}) {
     return (
         <div className='product'>
             <Link
